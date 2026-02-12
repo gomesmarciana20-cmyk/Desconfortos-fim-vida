@@ -1,0 +1,1319 @@
+htmlhtml
+
+
+    
+    
+    
+    <!-- PWA Meta Tags -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Desconfortos Fim Vida">
+<link rel="manifest" href="manifest.json"> <!-- Será gerado pelo JS -->
+<link rel="apple-touch-icon" href="cover_image.png"> <!-- Ícone para iOS -->
+<meta name="theme-color" content="#2196F3">
+
+<style>
+    /* Reset e Base */
+    :root {
+        --primary-color: #2196F3; /* Azul */<br/>
+        --secondary-color: #4CAF50; /* Verde */<br/>
+        --accent-color: #FFC107; /* Amarelo */<br/>
+        --text-color: #333;<br/>
+        --light-text-color: #666;<br/>
+        --background-color: #f4f7f6;<br/>
+        --card-background: #ffffff;<br/>
+        --border-color: #e0e0e0;<br/>
+        --danger-color: #f44336;<br/>
+        --shadow-light: 0 2px 4px rgba(0,0,0,0.1);<br/>
+        --shadow-medium: 0 4px 8px rgba(0,0,0,0.15);<br/>
+        --font-family: 'Arial', sans-serif;
+    }
+
+    body {
+        font-family: var(--font-family);<br/>
+        margin: 0;<br/>
+        padding: 0;<br/>
+        background-color: var(--background-color);<br/>
+        color: var(--text-color);<br/>
+        line-height: 1.6;<br/>
+        -webkit-font-smoothing: antialiased;<br/>
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--primary-color);<br/>
+        margin-top: 0;<br/>
+        margin-bottom: 15px;
+    }
+
+    a {
+        color: var(--primary-color);<br/>
+        text-decoration: none;
+    }
+
+    a:hover {<br/>
+        text-decoration: underline;
+    }
+
+    button {
+        background-color: var(--primary-color);<br/>
+        color: white;<br/>
+        border: none;<br/>
+        padding: 12px 20px;<br/>
+        border-radius: 8px;<br/>
+        cursor: pointer;<br/>
+        font-size: 1em;<br/>
+        transition: background-color 0.3s ease, transform 0.2s ease;<br/>
+        box-shadow: var(--shadow-light);
+    }
+
+    button:hover {<br/>
+        background-color: #1976D2;<br/>
+        transform: translateY(-1px);
+    }
+
+    button:active {<br/>
+        transform: translateY(0);<br/>
+        box-shadow: none;
+    }
+
+    input[type="password"], input[type="text"], textarea {
+        width: calc(100% - 24px);<br/>
+        padding: 12px;<br/>
+        margin-bottom: 15px;<br/>
+        border: 1px solid var(--border-color);<br/>
+        border-radius: 8px;<br/>
+        font-size: 1em;<br/>
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;<br/>
+        min-height: 80px;
+    }
+
+    /* Layout Geral */
+    .screen {
+        display: none;<br/>
+        min-height: 100vh;<br/>
+        width: 100%;<br/>
+        box-sizing: border-box;<br/>
+        padding: 20px;<br/>
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .screen.active {
+        display: flex;<br/>
+        flex-direction: column;<br/>
+        align-items: center;<br/>
+        justify-content: center;
+    }
+
+    .app-container {
+        width: 100%;<br/>
+        max-width: 800px;<br/>
+        margin: 0 auto;<br/>
+        background-color: var(--card-background);<br/>
+        box-shadow: var(--shadow-medium);<br/>
+        border-radius: 12px;<br/>
+        overflow: hidden;<br/>
+        display: flex;<br/>
+        flex-direction: column;<br/>
+        min-height: 100vh;
+    }
+
+    .app-section {
+        display: none;<br/>
+        padding: 20px;<br/>
+        flex-grow: 1;<br/>
+        overflow-y: auto;<br/>
+        width: 100%;<br/>
+        box-sizing: border-box;
+    }
+
+    .app-section.active {
+        display: block;
+    }
+
+    /* Login Screen */
+    #login-screen {
+        background-color: var(--primary-color);<br/>
+        color: white;<br/>
+        text-align: center;<br/>
+        padding: 40px 20px;
+    }
+
+    #login-screen img {
+        max-width: 200px;<br/>
+        height: auto;<br/>
+        margin-bottom: 30px;<br/>
+        border-radius: 10px;<br/>
+        box-shadow: var(--shadow-medium);
+    }
+
+    #login-screen h1 {
+        color: white;<br/>
+        font-size: 2.2em;<br/>
+        margin-bottom: 20px;
+    }
+
+    #login-screen p {
+        font-size: 1.1em;<br/>
+        margin-bottom: 30px;
+    }
+
+    #login-screen input[type="password"] {
+        background-color: rgba(255, 255, 255, 0.9);<br/>
+        color: var(--text-color);<br/>
+        border: none;<br/>
+        text-align: center;<br/>
+        max-width: 300px;<br/>
+        margin: 0 auto 20px auto;<br/>
+        display: block;
+    }
+
+    #login-screen button {
+        background-color: var(--secondary-color);<br/>
+        font-size: 1.2em;<br/>
+        padding: 15px 30px;
+    }
+
+    #login-screen button:hover {<br/>
+        background-color: #388E3C;
+    }
+
+    /* Header */
+    header {
+        background-color: var(--primary-color);<br/>
+        color: white;<br/>
+        padding: 15px 20px;<br/>
+        display: flex;<br/>
+        justify-content: space-between;<br/>
+        align-items: center;<br/>
+        box-shadow: var(--shadow-medium);<br/>
+        position: sticky;<br/>
+        top: 0;<br/>
+        z-index: 1000;
+    }
+
+    header h2 {
+        margin: 0;<br/>
+        font-size: 1.5em;<br/>
+        color: white;
+    }
+
+    .menu-toggle {
+        background: none;<br/>
+        border: none;<br/>
+        color: white;<br/>
+        font-size: 1.8em;<br/>
+        cursor: pointer;<br/>
+        padding: 5px;<br/>
+        display: block; /* Always show for simplicity in this single file */
+    }
+
+    #main-nav {
+        display: none;<br/>
+        flex-direction: column;<br/>
+        position: absolute;<br/>
+        top: 60px; /* Adjust based on header height */<br/>
+        right: 0;<br/>
+        background-color: var(--primary-color);<br/>
+        width: 200px;<br/>
+        box-shadow: var(--shadow-medium);<br/>
+        border-radius: 0 0 8px 8px;<br/>
+        z-index: 999;
+    }
+
+    #main-nav.active {
+        display: flex;
+    }
+
+    #main-nav a {
+        color: white;<br/>
+        padding: 12px 20px;<br/>
+        text-decoration: none;<br/>
+        border-bottom: 1px solid rgba(255,255,255,0.1);<br/>
+        transition: background-color 0.3s ease;
+    }
+
+    #main-nav a:last-child {<br/>
+        border-bottom: none;
+    }
+
+    #main-nav a:hover {<br/>
+        background-color: #1976D2;<br/>
+        text-decoration: none;
+    }
+
+    /* Home Screen */
+    #home-screen {
+        padding-top: 30px;
+    }
+
+    .symptom-grid {
+        display: grid;<br/>
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));<br/>
+        gap: 15px;<br/>
+        margin-bottom: 30px;
+    }
+
+    .symptom-card {
+        background-color: var(--card-background);<br/>
+        border-radius: 10px;<br/>
+        padding: 15px;<br/>
+        text-align: center;<br/>
+        box-shadow: var(--shadow-light);<br/>
+        cursor: pointer;<br/>
+        transition: transform 0.2s ease, box-shadow 0.2s ease;<br/>
+        display: flex;<br/>
+        flex-direction: column;<br/>
+        align-items: center;<br/>
+        justify-content: center;<br/>
+        min-height: 120px;
+    }
+
+    .symptom-card:hover {<br/>
+        transform: translateY(-3px);<br/>
+        box-shadow: var(--shadow-medium);
+    }
+
+    .symptom-card .icon {
+        font-size: 2.5em;<br/>
+        margin-bottom: 10px;<br/>
+        color: var(--primary-color);
+    }
+
+    .symptom-card h3 {
+        font-size: 1.1em;<br/>
+        margin: 0;<br/>
+        color: var(--text-color);
+    }
+
+    .quick-actions {
+        display: grid;<br/>
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));<br/>
+        gap: 15px;<br/>
+        margin-top: 20px;
+    }
+
+    .quick-actions button {
+        width: 100%;<br/>
+        padding: 15px;<br/>
+        font-size: 1.1em;<br/>
+        background-color: var(--secondary-color);
+    }
+
+    .quick-actions button:hover {<br/>
+        background-color: #388E3C;
+    }
+
+    /* Symptom Detail Screen */
+    #symptom-detail-screen h2 {
+        font-size: 1.8em;<br/>
+        margin-bottom: 20px;<br/>
+        text-align: center;
+    }
+
+    .symptom-info-section {
+        background-color: var(--card-background);<br/>
+        border-radius: 10px;<br/>
+        padding: 20px;<br/>
+        margin-bottom: 20px;<br/>
+        box-shadow: var(--shadow-light);
+    }
+
+    .symptom-info-section h3 {
+        color: var(--primary-color);<br/>
+        font-size: 1.3em;<br/>
+        margin-bottom: 10px;<br/>
+        border-bottom: 1px solid var(--border-color);<br/>
+        padding-bottom: 5px;
+    }
+
+    .symptom-info-section ul {
+        list-style: disc;<br/>
+        padding-left: 20px;<br/>
+        margin: 0;
+    }
+
+    .symptom-info-section ol {
+        list-style: decimal;<br/>
+        padding-left: 20px;<br/>
+        margin: 0;
+    }
+
+    .symptom-info-section li {
+        margin-bottom: 5px;
+    }
+
+    /* Comfort Assessment Screen */
+    #comfort-assessment-screen h2 {
+        text-align: center;<br/>
+        margin-bottom: 20px;
+    }
+
+    .comfort-scale {
+        display: flex;<br/>
+        justify-content: space-around;<br/>
+        margin-bottom: 20px;<br/>
+        background-color: var(--card-background);<br/>
+        padding: 15px;<br/>
+        border-radius: 10px;<br/>
+        box-shadow: var(--shadow-light);
+    }
+
+    .comfort-scale label {
+        display: flex;<br/>
+        flex-direction: column;<br/>
+        align-items: center;<br/>
+        cursor: pointer;<br/>
+        font-size: 0.9em;<br/>
+        color: var(--light-text-color);
+    }
+
+    .comfort-scale input[type="radio"] {
+        -webkit-appearance: none;<br/>
+        -moz-appearance: none;<br/>
+        appearance: none;<br/>
+        width: 30px;<br/>
+        height: 30px;<br/>
+        border: 2px solid var(--primary-color);<br/>
+        border-radius: 50%;<br/>
+        margin-bottom: 5px;<br/>
+        outline: none;<br/>
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .comfort-scale input[type="radio"]:checked {<br/>
+        background-color: var(--primary-color);<br/>
+        border-color: var(--primary-color);
+    }
+
+    .comfort-scale input[type="radio"]:checked + span {<br/>
+        color: var(--primary-color);<br/>
+        font-weight: bold;
+    }
+
+    #comfort-description {
+        text-align: center;<br/>
+        margin-top: 10px;<br/>
+        font-style: italic;<br/>
+        color: var(--light-text-color);<br/>
+        min-height: 20px;
+    }
+
+    #save-assessment-btn {
+        background-color: var(--secondary-color);<br/>
+        width: 100%;<br/>
+        margin-top: 20px;
+    }
+
+    #save-assessment-btn:hover {<br/>
+        background-color: #388E3C;
+    }
+
+    /* Caregiver Orientations Screen */
+    #caregiver-orientations-screen h2 {
+        text-align: center;<br/>
+        margin-bottom: 20px;
+    }
+
+    .orientation-section {
+        background-color: var(--card-background);<br/>
+        border-radius: 10px;<br/>
+        padding: 20px;<br/>
+        margin-bottom: 20px;<br/>
+        box-shadow: var(--shadow-light);
+    }
+
+    .orientation-section h3 {
+        color: var(--primary-color);<br/>
+        font-size: 1.3em;<br/>
+        margin-bottom: 10px;<br/>
+        border-bottom: 1px solid var(--border-color);<br/>
+        padding-bottom: 5px;
+    }
+
+    .orientation-section ul {
+        list-style: disc;<br/>
+        padding-left: 20px;<br/>
+        margin: 0;
+    }
+
+    .orientation-section li {
+        margin-bottom: 5px;
+    }
+
+    /* Crisis Mode Screen */
+    #crisis-mode-screen {
+        text-align: center;
+    }
+
+    #crisis-mode-screen h2 {
+        color: var(--danger-color);<br/>
+        font-size: 2em;<br/>
+        margin-bottom: 30px;
+    }
+
+    .crisis-buttons {
+        display: grid;<br/>
+        grid-template-columns: 1fr;<br/>
+        gap: 20px;
+    }
+
+    .crisis-buttons button {
+        background-color: var(--danger-color);<br/>
+        color: white;<br/>
+        font-size: 1.5em;<br/>
+        padding: 25px 20px;<br/>
+        border-radius: 15px;<br/>
+        box-shadow: var(--shadow-medium);
+    }
+
+    .crisis-buttons button:hover {<br/>
+        background-color: #D32F2F;
+    }
+
+    /* Assessment History Screen */
+    #assessment-history-screen h2 {
+        text-align: center;<br/>
+        margin-bottom: 20px;
+    }
+
+    #assessment-list {
+        background-color: var(--card-background);<br/>
+        border-radius: 10px;<br/>
+        box-shadow: var(--shadow-light);<br/>
+        padding: 15px;<br/>
+        margin-bottom: 20px;
+    }
+
+    .assessment-item {
+        border-bottom: 1px solid var(--border-color);<br/>
+        padding: 10px 0;<br/>
+        display: flex;<br/>
+        flex-direction: column;
+    }
+
+    .assessment-item:last-child {<br/>
+        border-bottom: none;
+    }
+
+    .assessment-item strong {
+        color: var(--primary-color);
+    }
+
+    .assessment-item span {
+        font-size: 0.9em;<br/>
+        color: var(--light-text-color);
+    }
+
+    #clear-history-btn {
+        background-color: var(--danger-color);<br/>
+        width: 100%;
+    }
+
+    #clear-history-btn:hover {<br/>
+        background-color: #D32F2F;
+    }
+
+    /* Utility Classes */
+    .text-center { text-align: center; }<br/>
+    .mb-20 { margin-bottom: 20px; }<br/>
+    .mt-20 { margin-top: 20px; }
+
+    /* Animações */
+    @keyframes fadeIn {
+        from { opacity: 0; }<br/>
+        to { opacity: 1; }
+    }
+
+    /* Responsividade */
+    @media (min-width: 768px) {
+        .app-container {
+            min-height: 80vh;<br/>
+            margin-top: 5vh;<br/>
+            margin-bottom: 5vh;
+        }
+        .screen.active {
+            justify-content: flex-start; /* Align content to top on larger screens */
+        }
+        .symptom-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+        .quick-actions {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        .menu-toggle {
+            display: none; /* Hide hamburger on larger screens */
+        }
+        #main-nav {
+            display: flex;<br/>
+            flex-direction: row;<br/>
+            position: static;<br/>
+            width: auto;<br/>
+            box-shadow: none;<br/>
+            border-radius: 0;<br/>
+            background-color: transparent;
+        }
+        #main-nav a {
+            border-bottom: none;<br/>
+            padding: 8px 15px;
+        }
+        #main-nav a:hover {<br/>
+            background-color: rgba(255,255,255,0.1);
+        }
+    }
+</style>
+<!-- Login Screen -->
+<div id="login-screen" class="screen active">
+    <img src="cover_image.png" alt="Capa do Livro: Os Desconfortos no Fim de Vida">
+    <h1>Os Desconfortos no Fim de Vida</h1>
+    <p>Um guia interativo para profissionais de saúde, cuidadores e familiares.</p>
+    <input type="password" id="password-input" placeholder="Digite a senha">
+    <button id="login-button">Entrar</button>
+    <p id="login-error" style="color: var(--accent-color); margin-top: 10px; display: none;">Senha incorreta. Tente novamente.</p>
+</div>
+
+<!-- Main App Container -->
+<div id="app-container" class="screen">
+    <header>
+        <h2 id="app-title">Home</h2>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <nav id="main-nav">
+            <a href="#" data-target="home-screen">🏠 Home</a>
+            <a href="#" data-target="comfort-assessment-screen">😌 Avaliação de Conforto</a>
+            <a href="#" data-target="caregiver-orientations-screen">👨‍👩‍👧‍👦 Cuidadores</a>
+            <a href="#" data-target="crisis-mode-screen">🚨 Modo Crise</a>
+            <a href="#" data-target="assessment-history-screen">📜 Histórico</a>
+            <a href="#" id="logout-button">🔒 Sair</a>
+        </nav>
+    </header>
+
+    <!-- Home/Dashboard Section -->
+    <section id="home-screen" class="app-section active">
+        <h2 class="text-center">Sintomas Comuns no Fim de Vida</h2>
+        <div class="symptom-grid" id="symptom-grid">
+            <!-- Sintomas serão carregados aqui pelo JS -->
+        </div>
+        <h2 class="text-center mt-20">Ações Rápidas</h2>
+        <div class="quick-actions">
+            <button data-target="comfort-assessment-screen">Avaliar Conforto</button>
+            <button data-target="caregiver-orientations-screen">Orientações</button>
+            <button data-target="crisis-mode-screen">Modo Crise</button>
+            <button data-target="assessment-history-screen">Ver Histórico</button>
+        </div>
+    </section>
+
+    <!-- Symptom Detail Section (dinâmico) -->
+    <section id="symptom-detail-screen" class="app-section">
+        <button onclick="showScreen('home-screen')" class="mb-20">← Voltar</button>
+        <h2 id="symptom-detail-title"></h2>
+        <div id="symptom-detail-content">
+            <!-- Conteúdo do sintoma será carregado aqui pelo JS -->
+        </div>
+    </section>
+
+    <!-- Comfort Assessment Section -->
+    <section id="comfort-assessment-screen" class="app-section">
+        <button onclick="showScreen('home-screen')" class="mb-20">← Voltar</button>
+        <h2>Avaliação de Conforto</h2>
+        <p class="text-center mb-20">Use a escala abaixo para registrar o nível de conforto do paciente.</p>
+
+        <div class="comfort-scale">
+            <label>
+                <input type="radio" name="comfort-level" value="1">
+                <span>1 - Muito Desconfortável</span>
+            </label>
+            <label>
+                <input type="radio" name="comfort-level" value="2">
+                <span>2 - Desconfortável</span>
+            </label>
+            <label>
+                <input type="radio" name="comfort-level" value="3">
+                <span>3 - Neutro</span>
+            </label>
+            <label>
+                <input type="radio" name="comfort-level" value="4">
+                <span>4 - Confortável</span>
+            </label>
+            <label>
+                <input type="radio" name="comfort-level" value="5">
+                <span>5 - Muito Confortável</span>
+            </label>
+        </div>
+        <p id="comfort-description"></p>
+
+        <textarea id="assessment-notes" placeholder="Observações adicionais (ex: o que foi feito, reação do paciente)..."></textarea>
+        <button id="save-assessment-btn">Salvar Avaliação</button>
+        <p id="assessment-message" class="text-center mt-20" style="color: var(--secondary-color); display: none;"></p>
+    </section>
+
+    <!-- Caregiver Orientations Section -->
+    <section id="caregiver-orientations-screen" class="app-section">
+        <button onclick="showScreen('home-screen')" class="mb-20">← Voltar</button>
+        <h2>Orientações para Cuidadores</h2>
+        <div class="orientation-section">
+            <h3>Dicas Gerais de Cuidado</h3>
+            <ul>
+                <li>Mantenha o ambiente calmo e confortável.</li>
+                <li>Ofereça líquidos em pequenas quantidades, se o paciente conseguir engolir.</li>
+                <li>Mantenha a higiene pessoal e oral.</li>
+                <li>Altere a posição do paciente regularmente para prevenir lesões.</li>
+                <li>Esteja presente e ofereça apoio emocional.</li>
+            </ul>
+        </div>
+        <div class="orientation-section">
+            <h3>Frases Úteis para Comunicação</h3>
+            <ul>
+                <li>"Estou aqui com você."</li>
+                <li>"Você está seguro(a)."</li>
+                <li>"Eu te amo."</li>
+                <li>"O que você precisa agora?"</li>
+                <li>"Está tudo bem, descanse."</li>
+            </ul>
+        </div>
+        <div class="orientation-section">
+            <h3>Plano de Crise Simplificado</h3>
+            <p>Em caso de piora súbita ou desconforto intenso:</p>
+            <ol>
+                <li>Mantenha a calma.</li>
+                <li>Verifique os sinais vitais (se souber).</li>
+                <li>Administre medicação de resgate, se prescrita.</li>
+                <li>Ligue para a equipe de saúde ou serviço de emergência.</li>
+                <li>Mantenha o paciente confortável e seguro.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Crisis Mode Section -->
+    <section id="crisis-mode-screen" class="app-section">
+        <button onclick="showScreen('home-screen')" class="mb-20">← Voltar</button>
+        <h2>🚨 Modo Crise 🚨</h2>
+        <p class="text-center mb-20">Ações rápidas em momentos de emergência ou desconforto agudo.</p>
+        <div class="crisis-buttons">
+            <button onclick="alert('Ligar para a equipe de saúde ou serviço de emergência agora.')">📞 Ligar para Equipe de Saúde</button>
+            <button onclick="alert('Verificar e administrar medicação de resgate conforme prescrição.')">💊 Medicação de Resgate</button>
+            <button onclick="alert('Posicionar o paciente para conforto e segurança (ex: lateral, cabeceira elevada).')">🛌 Posicionar Paciente</button>
+            <button onclick="alert('Manter a calma, respirar fundo e oferecer apoio emocional.')">🧘 Manter a Calma</button>
+        </div>
+    </section>
+
+    <!-- Assessment History Section -->
+    <section id="assessment-history-screen" class="app-section">
+        <button onclick="showScreen('home-screen')" class="mb-20">← Voltar</button>
+        <h2>Histórico de Avaliações</h2>
+        <div id="assessment-list">
+            <p class="text-center" id="no-history-message">Nenhuma avaliação registrada ainda.</p>
+            <!-- Avaliações serão carregadas aqui pelo JS -->
+        </div>
+        <button id="clear-history-btn">Limpar Histórico</button>
+    </section>
+
+</div>
+
+<script defer>
+    // Service Worker Registration for PWA
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then(registration => {
+                console.log('SW registered: ', registration);
+            }).catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+        });
+    }
+
+    // Generate manifest.json dynamically for PWA
+    const manifest = {
+        name: "Desconfortos Fim Vida",<br/>
+        short_name: "Desconfortos",<br/>
+        description: "Mini app interativo sobre os 10 desconfortos mais comuns no fim de vida.",<br/>
+        start_url: "/",<br/>
+        display: "standalone",<br/>
+        background_color: "#f4f7f6",<br/>
+        theme_color: "#2196F3",<br/>
+        icons: [
+            {
+                src: "cover_image.png",<br/>
+                sizes: "192x192",<br/>
+                type: "image/png"
+            },
+            {
+                src: "cover_image.png",<br/>
+                sizes: "512x512",<br/>
+                type: "image/png"
+            }
+        ]
+    };
+    const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    document.querySelector('link[rel="manifest"]').setAttribute('href', manifestURL);
+
+    // --- App Logic ---
+    const PASSWORD = "cuidar123";
+    const loginScreen = document.getElementById('login-screen');
+    const appContainer = document.getElementById('app-container');
+    const passwordInput = document.getElementById('password-input');
+    const loginButton = document.getElementById('login-button');
+    const loginError = document.getElementById('login-error');
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+    const appTitle = document.getElementById('app-title');
+    const logoutButton = document.getElementById('logout-button');
+
+    // --- Data for Symptoms ---
+    const symptomsData = [
+        {
+            id: 'gastroparesia',<br/>
+            name: 'Gastroparesia',<br/>
+            icon: '🤢',<br/>
+            content: {<br/>
+                oque: 'A gastroparesia é uma condição em que o estômago leva muito tempo para esvaziar seu conteúdo para o intestino delgado, mesmo sem haver um bloqueio físico. Isso pode causar náuseas, vômitos e sensação de saciedade precoce.',<br/>
+                reconhecer: 'Náuseas persistentes, vômitos (especialmente de alimentos não digeridos horas após a refeição), inchaço abdominal, perda de apetite, saciedade precoce e dor abdominal.',<br/>
+                avaliacao: 'Observar frequência e volume de vômitos, tempo entre a refeição e o vômito, presença de alimentos não digeridos. Avaliar a ingestão alimentar e o peso.',<br/>
+                naofarmacologicas: [
+                    'Refeições pequenas e frequentes (6-8 por dia).',
+                    'Alimentos com baixo teor de gordura e fibra (fibras podem retardar o esvaziamento gástrico).',
+                    'Evitar bebidas gaseificadas e álcool.',
+                    'Caminhar após as refeições para estimular a digestão.',
+                    'Manter-se sentado(a) ou com a cabeceira elevada após comer.'
+                ],
+                farmacologicas: [<br/>
+                    'Procinéticos (ex: Metoclopramida, Domperidona) para acelerar o esvaziamento gástrico.',<br/>
+                    'Anti-eméticos (ex: Ondansetrona) para controlar náuseas e vômitos.'
+                ],
+                alertas: 'Vômitos incontroláveis, desidratação, perda de peso significativa, dor abdominal intensa. Risco de aspiração.',<br/>
+                orientacoes: 'Oferecer alimentos de fácil digestão, em pequenas porções. Manter a boca limpa após vômitos. Observar sinais de desidratação (boca seca, pouca urina).'
+            }
+        },
+        {
+            id: 'sialorreia',<br/>
+            name: 'Sialorreia (Excesso de Saliva)',<br/>
+            icon: '🤤',<br/>
+            content: {<br/>
+                oque: 'Sialorreia é o acúmulo excessivo de saliva na boca, geralmente devido à dificuldade de deglutição (engolir) ou à diminuição da frequência de deglutição, e não necessariamente por produção excessiva de saliva. Pode levar a babar e risco de aspiração.',<br/>
+                reconhecer: 'Saliva escorrendo pela boca, tosse frequente, engasgos, sons de "borbulhar" na garganta, umidade excessiva ao redor da boca, dificuldade para falar.',<br/>
+                avaliacao: 'Observar a frequência e quantidade de saliva escorrendo, a presença de tosse ou engasgos após a deglutição, e a capacidade do paciente de engolir líquidos e alimentos.',<br/>
+                naofarmacologicas: [<br/>
+                    'Posicionamento: Manter a cabeceira elevada (30-45 graus) ou o paciente em posição lateral.',<br/>
+                    'Higiene oral frequente: Limpar a boca com gaze úmida ou escova macia.',<br/>
+                    'Estimulação da deglutição: Oferecer pequenos goles de água ou gelo para estimular o reflexo de engolir (se seguro).',
+                    'Uso de compressas ou toalhas para absorver o excesso de saliva.'
+                ],
+                farmacologicas: [<br/>
+                    'Anticolinérgicos (ex: Escopolamina, Atropina sublingual) para reduzir a produção de saliva.',
+                    'Injeções de toxina botulínica nas glândulas salivares (em casos específicos e com indicação médica).'
+                ],
+                alertas: 'Engasgos frequentes, tosse persistente, dificuldade respiratória, sinais de aspiração (febre, piora da tosse, chiado no peito).',<br/>
+                orientacoes: 'Manter a boca e a pele ao redor secas e limpas. Oferecer apoio e tranquilidade. Explicar à família que é um sintoma comum e como manejá-lo.'
+            }
+        },
+        {
+            id: 'constipacao',<br/>
+            name: 'Constipação',<br/>
+            icon: '💩',<br/>
+            content: {<br/>
+                oque: 'Constipação é a dificuldade ou infrequência na evacuação intestinal, caracterizada por fezes duras, secas e difíceis de passar. É um sintoma muito comum no fim de vida, frequentemente causado por medicamentos (opioides), baixa ingestão de líquidos e fibras, e imobilidade.',<br/>
+                reconhecer: 'Menos de 3 evacuações por semana, esforço excessivo para evacuar, fezes duras ou em bolinhas, sensação de evacuação incompleta, dor abdominal, inchaço, náuseas, vômitos, confusão mental (em casos graves).',<br/>
+                avaliacao: 'Perguntar sobre a frequência das evacuações, consistência das fezes (Escala de Bristol), presença de dor ou esforço. Palpar o abdome para verificar distensão ou massa fecal.',<br/>
+                naofarmacologicas: [
+                    'Aumentar a ingestão de líquidos (se permitido e seguro).',
+                    'Aumentar a ingestão de fibras (se a dieta for oral e tolerada).',
+                    'Estimular a mobilidade (se possível, mesmo que mínima).',
+                    'Massagem abdominal suave no sentido horário.',
+                    'Estabelecer um horário regular para tentar evacuar.'
+                ],
+                farmacologicas: [<br/>
+                    'Laxantes osmóticos (ex: Lactulose, Macrogol) para amolecer as fezes.',<br/>
+                    'Laxantes estimulantes (ex: Bisacodil, Sene) para estimular o movimento intestinal.',<br/>
+                    'Supositórios (ex: Glicerina) ou enemas (ex: Fleet Enema) para casos de impactação fecal.',<br/>
+                    'Agonistas de receptores opioides (ex: Metilnaltrexona) para constipação induzida por opioides.'
+                ],
+                alertas: 'Dor abdominal intensa, ausência de evacuações por mais de 3 dias, vômitos fecaloide, sinais de impactação fecal (diarreia por extravasamento, confusão mental).',<br/>
+                orientacoes: 'Explicar a importância da prevenção e manejo da constipação. Manter um registro das evacuações. Oferecer privacidade e conforto durante a evacuação.'
+            }
+        },
+        {
+            id: 'lesoes-pressao',<br/>
+            name: 'Aumento de Lesões por Pressão',<br/>
+            icon: '🩹',<br/>
+            content: {<br/>
+                oque: 'Lesões por pressão (úlceras de pressão) são danos localizados na pele e/ou tecido subjacente, geralmente sobre uma proeminência óssea, resultantes de pressão prolongada ou fricção. No fim de vida, a fragilidade da pele, desnutrição e imobilidade aumentam o risco.',<br/>
+                reconhecer: 'Vermelhidão que não desaparece ao toque (Estágio 1), bolhas ou perda parcial da pele (Estágio 2), ferida profunda com exposição de gordura (Estágio 3), exposição de músculo/osso (Estágio 4). Dor, calor, inchaço na área afetada.',<br/>
+                avaliacao: 'Inspecionar a pele diariamente, especialmente em proeminências ósseas (sacro, calcanhares, cotovelos, quadris). Avaliar o tamanho, profundidade, exsudato e odor da lesão. Usar escalas de risco (ex: Braden).',<br/>
+                naofarmacologicas: [
+                    'Mudança de decúbito (posição) a cada 2 horas (ou mais frequentemente, se tolerado).',
+                    'Uso de colchões e almofadas de alívio de pressão (ex: colchão piramidal, de ar).',
+                    'Manter a pele limpa e seca, hidratada, mas não úmida.',
+                    'Evitar fricção e cisalhamento ao movimentar o paciente.',
+                    'Nutrição e hidratação adequadas (se possível).'
+                ],
+                farmacologicas: [<br/>
+                    'Curativos específicos para cada estágio da lesão (ex: hidrocoloides, alginatos, espumas).',
+                    'Antissépticos para limpeza da ferida (se houver infecção).',
+                    'Antibióticos sistêmicos em caso de infecção grave.',
+                    'Analgésicos para controle da dor associada à lesão.'
+                ],
+                alertas: 'Piora da lesão (aumento de tamanho, profundidade), sinais de infecção (vermelhidão, calor, pus, febre), dor intensa, odor fétido.',<br/>
+                orientacoes: 'Ensinar cuidadores a inspecionar a pele e realizar mudanças de posição. Explicar a importância da nutrição e hidratação. Oferecer apoio emocional, pois as lesões podem ser angustiantes.'
+            }
+        },
+        {
+            id: 'piora-renal',<br/>
+            name: 'Piora da Função Renal',<br/>
+            icon: '💧',<br/>
+            content: {<br/>
+                oque: 'A piora da função renal no fim de vida é comum e pode ser parte do processo natural de falência de múltiplos órgãos. Os rins perdem a capacidade de filtrar resíduos do sangue e regular o equilíbrio de fluidos e eletrólitos.',<br/>
+                reconhecer: 'Diminuição da produção de urina (oligúria ou anúria), inchaço (edema) nas pernas, pés e face, fadiga extrema, confusão mental, náuseas, vômitos, coceira na pele, hálito com odor urêmico.',<br/>
+                avaliacao: 'Monitorar a produção de urina (diurese), observar a presença e localização de edema. Avaliar o nível de consciência e a presença de sintomas como náuseas e coceira. Exames laboratoriais (creatinina, ureia) podem confirmar, mas nem sempre são necessários no fim de vida.',<br/>
+                naofarmacologicas: [
+                    'Restrição de líquidos (se houver edema significativo e sobrecarga de volume).',
+                    'Dieta com baixo teor de sal e potássio (se o paciente ainda se alimenta oralmente).',
+                    'Higiene oral frequente para aliviar a boca seca e o hálito urêmico.',
+                    'Posicionamento confortável para aliviar o edema e a dispneia (se presente).'
+                ],
+                farmacologicas: [<br/>
+                    'Diuréticos (ex: Furosemida) para reduzir o edema e a sobrecarga de volume.',
+                    'Anti-eméticos para náuseas e vômitos.',
+                    'Analgésicos para dor (com cautela, pois alguns são excretados pelos rins).',
+                    'Medicações para controle de eletrólitos (ex: quelantes de potássio, se hipercalemia grave).'
+                ],
+                alertas: 'Anúria (ausência de urina), dispneia grave por sobrecarga de volume, confusão mental progressiva, convulsões.',<br/>
+                orientacoes: 'Explicar à família que a diminuição da urina e o inchaço são esperados. Focar no conforto e na redução dos sintomas. Evitar forçar a ingestão de líquidos se houver edema.'
+            }
+        },
+        {
+            id: 'sangramentos',<br/>
+            name: 'Sangramentos por Lesões',<br/>
+            icon: '🩸',<br/>
+            content: {<br/>
+                oque: 'Sangramentos podem ocorrer no fim de vida devido à fragilidade dos vasos sanguíneos, distúrbios de coagulação (doença hepática, medicação), tumores ou lesões na pele e mucosas. Podem ser pequenos e persistentes ou agudos e volumosos.',<br/>
+                reconhecer: 'Sangue visível em feridas, boca, nariz, urina, fezes (melena ou hematoquezia), tosse com sangue (hemoptise), hematomas espontâneos, petéquias (pequenos pontos vermelhos na pele). Palidez, fraqueza, tontura em caso de perda sanguínea significativa.',<br/>
+                avaliacao: 'Identificar a origem e o volume do sangramento. Avaliar a frequência e o impacto no paciente (dor, ansiedade, fraqueza). Monitorar sinais vitais (pressão arterial, frequência cardíaca).',<br/>
+                naofarmacologicas: [
+                    'Compressão direta no local do sangramento (se externo e acessível).',
+                    'Uso de compressas frias para vasoconstrição.',
+                    'Posicionamento confortável e tranquilizador para o paciente.',
+                    'Higiene oral suave com escova macia ou gaze para sangramentos na boca.',
+                    'Evitar traumas ou fricção na pele.'
+                ],
+                farmacologicas: [<br/>
+                    'Agentes hemostáticos tópicos (ex: esponjas de gelatina, trombina) para sangramentos externos.',<br/>
+                    'Medicações para distúrbios de coagulação (ex: Vitamina K, transfusões, se indicado e alinhado aos objetivos de cuidado).',
+                    'Analgésicos e ansiolíticos para controle da dor e ansiedade associadas ao sangramento.',
+                    'Transfusões de sangue (se indicado para alívio de sintomas e alinhado aos objetivos de cuidado).'
+                ],
+                alertas: 'Sangramento volumoso e incontrolável, sangramento interno (dor abdominal intensa, distensão, choque), sinais de choque (palidez extrema, sudorese fria, confusão, queda da pressão arterial).',<br/>
+                orientacoes: 'Explicar à família a possibilidade de sangramentos e como agir. Oferecer apoio emocional e tranquilidade. Preparar materiais para contenção de sangramento (compressas, toalhas escuras).'
+            }
+        },
+        {
+            id: 'diarreia',<br/>
+            name: 'Diarreia',<br/>
+            icon: '💦',<br/>
+            content: {<br/>
+                oque: 'Diarreia é a evacuação frequente de fezes líquidas ou amolecidas. No fim de vida, pode ser causada por infecções, medicamentos (antibióticos, laxantes), impactação fecal com extravasamento, má absorção ou doenças intestinais.',<br/>
+                reconhecer: 'Aumento da frequência e liquidez das evacuações, dor abdominal tipo cólica, inchaço, náuseas, vômitos, febre (se infecção), desidratação (boca seca, pouca urina, tontura).',<br/>
+                avaliacao: 'Monitorar a frequência e consistência das evacuações, volume e características das fezes. Avaliar a presença de dor abdominal, febre e sinais de desidratação. Verificar uso de medicamentos que possam causar diarreia.',<br/>
+                naofarmacologicas: [
+                    'Hidratação oral com soro de reidratação oral (se o paciente consegue beber).',
+                    'Dieta leve e de fácil digestão (ex: arroz, banana, maçã, torradas).',
+                    'Evitar alimentos ricos em fibras, gordura, laticínios e cafeína.',
+                    'Higiene perianal rigorosa para prevenir assaduras e infecções.',
+                    'Proteger a pele com cremes de barreira.'
+                ],
+                farmacologicas: [<br/>
+                    'Agentes antidiarreicos (ex: Loperamida) para reduzir a motilidade intestinal.',
+                    'Antibióticos (se infecção bacteriana confirmada).',
+                    'Probióticos para restaurar a flora intestinal (em alguns casos).',
+                    'Analgésicos para dor abdominal.'
+                ],
+                alertas: 'Diarreia persistente por mais de 24-48 horas, sinais de desidratação grave, febre alta, sangue nas fezes, dor abdominal intensa.',<br/>
+                orientacoes: 'Explicar a importância da hidratação e higiene. Oferecer privacidade e conforto. Monitorar a pele para prevenir assaduras.'
+            }
+        },
+        {
+            id: 'engasgos',<br/>
+            name: 'Engasgos',<br/>
+            icon: ' choking',<br/>
+            content: {<br/>
+                oque: 'Engasgos ocorrem quando alimentos, líquidos ou saliva entram nas vias aéreas em vez de irem para o esôfago. No fim de vida, a fraqueza muscular, diminuição dos reflexos de deglutição e alterações neurológicas aumentam o risco.',<br/>
+                reconhecer: 'Tosse súbita e intensa durante ou após a alimentação/ingestão de líquidos, voz molhada ou rouca após engolir, dificuldade para respirar, cianose (coloração azulada da pele), ansiedade, medo de comer.',<br/>
+                avaliacao: 'Observar a ocorrência de tosse ou engasgos durante as refeições. Avaliar a capacidade de deglutição de diferentes consistências (líquidos, pastosos, sólidos). Verificar a presença de salivação excessiva ou acúmulo de secreções na boca.',<br/>
+                naofarmacologicas: [<br/>
+                    'Posicionamento: Manter o paciente sentado(a) ou com a cabeceira elevada a 90 graus durante e após as refeições.',
+                    'Refeições pequenas e lentas, com tempo adequado para cada deglutição.',
+                    'Consistência dos alimentos: Adaptar a consistência (ex: alimentos pastosos, líquidos espessados).',
+                    'Evitar distrações durante as refeições.',
+                    'Higiene oral rigorosa antes e após as refeições.'
+                ],
+                farmacologicas: [<br/>
+                    'Não há medicação específica para engasgos. O foco é na prevenção e manejo das causas subjacentes (ex: sialorreia).',
+                    'Anti-eméticos se náuseas ou vômitos contribuírem para o risco.'
+                ],
+                alertas: 'Engasgos frequentes, dificuldade respiratória grave, cianose, sinais de aspiração (febre, tosse persistente, chiado no peito).',<br/>
+                orientacoes: 'Ensinar cuidadores sobre técnicas seguras de alimentação e posicionamento. Explicar o risco de aspiração. Oferecer apoio e tranquilidade durante as refeições.'
+            }
+        },
+        {
+            id: 'sonolencia',<br/>
+            name: 'Sonolência',<br/>
+            icon: '😴',<br/>
+            content: {<br/>
+                oque: 'Sonolência excessiva é um sintoma comum no fim de vida, podendo ser causada pela progressão da doença, medicamentos (opioides, sedativos), desequilíbrios metabólicos, desidratação ou infecções. Pode variar de sonolência leve a coma.',<br/>
+                reconhecer: 'Dificuldade em manter-se acordado(a) durante o dia, cochilos frequentes, resposta lenta a estímulos, dificuldade de concentração, fala arrastada, confusão mental.',<br/>
+                avaliacao: 'Observar o padrão de sono-vigília, a capacidade de resposta a estímulos verbais e táteis. Avaliar o uso de medicamentos que causam sonolência. Verificar sinais de desidratação ou infecção.',<br/>
+                naofarmacologicas: [<br/>
+                    'Ajustar o ambiente: Manter o quarto escuro e silencioso à noite, e bem iluminado e com atividades leves durante o dia (se possível).',
+                    'Revisar o horário de administração de medicamentos sedativos.',
+                    'Estimular a interação social e atividades leves durante os períodos de vigília.',
+                    'Higiene oral frequente para manter a boca úmida e limpa.'
+                ],
+                farmacologicas: [
+                    'Revisar e ajustar doses de medicamentos sedativos (opioides, benzodiazepínicos).',
+                    'Estimulantes (ex: Metilfenidato) podem ser considerados em casos específicos para melhorar a vigília e a interação, se alinhado aos objetivos de cuidado.',<br/>
+                    'Tratar causas subjacentes (ex: infecção, desidratação).'
+                ],
+                alertas: 'Sonolência que progride rapidamente para coma, dificuldade em despertar o paciente, respiração irregular, convulsões.',<br/>
+                orientacoes: 'Explicar à família que a sonolência é um processo natural no fim de vida. Ensinar a interagir com o paciente mesmo sonolento. Oferecer apoio emocional.'
+            }
+        },
+        {
+            id: 'retencao-urinaria',<br/>
+            name: 'Retenção Urinária',<br/>
+            icon: '🚽',<br/>
+            content: {<br/>
+                oque: 'Retenção urinária é a incapacidade de esvaziar completamente a bexiga. No fim de vida, pode ser causada por fraqueza muscular da bexiga, obstrução (ex: próstata aumentada, impactação fecal), medicamentos (anticolinérgicos) ou problemas neurológicos.',<br/>
+                reconhecer: 'Dificuldade ou incapacidade de urinar, sensação de bexiga cheia, dor ou desconforto na parte inferior do abdome, gotejamento de urina (incontinência por transbordamento), agitação, confusão mental.',<br/>
+                avaliacao: 'Perguntar sobre a frequência e volume das micções. Palpar o abdome para verificar distensão da bexiga (globo vesical). Avaliar a presença de dor ou desconforto. Verificar uso de medicamentos que podem causar retenção.',<br/>
+                naofarmacologicas: [<br/>
+                    'Posicionamento: Ajudar o paciente a sentar-se ou ficar em pé para urinar (se possível).',<br/>
+                    'Estimulação: Tentar sons de água corrente, compressas quentes na região abdominal inferior.',
+                    'Privacidade e conforto durante a micção.'
+                ],
+                farmacologicas: [
+                    'Cateterismo vesical (sonda) de alívio ou de demora para esvaziar a bexiga e aliviar o desconforto.',
+                    'Alfa-bloqueadores (ex: Tansulosina) para relaxar a musculatura da próstata (se obstrução prostática).',
+                    'Revisar e ajustar medicamentos que podem causar retenção urinária.'
+                ],
+                alertas: 'Dor intensa na bexiga, ausência de micção por muitas horas, agitação ou confusão mental súbita, febre (sinal de infecção urinária).',<br/>
+                orientacoes: 'Explicar a causa da retenção e a necessidade de intervenção (cateterismo). Oferecer apoio e tranquilidade. Manter a higiene íntima rigorosa.'
+            }
+        }
+    ];
+
+    // --- DOM Elements ---
+    const symptomGrid = document.getElementById('symptom-grid');
+    const symptomDetailScreen = document.getElementById('symptom-detail-screen');
+    const symptomDetailTitle = document.getElementById('symptom-detail-title');
+    const symptomDetailContent = document.getElementById('symptom-detail-content');
+
+    const comfortScaleRadios = document.querySelectorAll('input[name="comfort-level"]');
+    const comfortDescription = document.getElementById('comfort-description');
+    const assessmentNotes = document.getElementById('assessment-notes');
+    const saveAssessmentBtn = document.getElementById('save-assessment-btn');
+    const assessmentMessage = document.getElementById('assessment-message');
+
+    const assessmentList = document.getElementById('assessment-list');
+    const noHistoryMessage = document.getElementById('no-history-message');
+    const clearHistoryBtn = document.getElementById('clear-history-btn');
+
+    // --- Navigation Functions ---
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(screen => {
+            screen.classList.remove('active');
+        });
+        document.getElementById(screenId).classList.add('active');
+
+        if (screenId === 'app-container') {
+            document.querySelectorAll('.app-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('home-screen').classList.add('active');
+            appTitle.textContent = 'Home';
+        } else if (screenId !== 'login-screen') {
+            document.querySelectorAll('.app-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            appTitle.textContent = document.querySelector(`#${screenId} h2`) ? document.querySelector(`#${screenId} h2`).textContent : 'App';
+        }
+        mainNav.classList.remove('active'); // Close menu on navigation
+    }
+
+    function showAppSection(sectionId) {
+        document.querySelectorAll('.app-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+        appTitle.textContent = document.querySelector(`#${sectionId} h2`) ? document.querySelector(`#${sectionId} h2`).textContent : 'App';
+        mainNav.classList.remove('active'); // Close menu on navigation
+    }
+
+    // --- Login Logic ---
+    loginButton.addEventListener('click', () => {
+        if (passwordInput.value === PASSWORD) {
+            loginScreen.classList.remove('active');
+            appContainer.classList.add('active');
+            showAppSection('home-screen');
+            localStorage.setItem('loggedIn', 'true');
+        } else {
+            loginError.style.display = 'block';
+            passwordInput.value = '';
+        }
+    });
+
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            loginButton.click();
+        }
+    });
+
+    logoutButton.addEventListener('click', () => {
+        localStorage.removeItem('loggedIn');
+        showScreen('login-screen');
+        passwordInput.value = '';
+        loginError.style.display = 'none';
+    });
+
+    // Check login status on load
+    if (localStorage.getItem('loggedIn') === 'true') {
+        showScreen('app-container');
+        showAppSection('home-screen');
+    } else {
+        showScreen('login-screen');
+    }
+
+    // --- Menu Toggle ---
+    menuToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+    });
+
+    // --- Dynamic Symptom Grid ---
+    function renderSymptomGrid() {
+        symptomGrid.innerHTML = '';
+        symptomsData.forEach(symptom => {
+            const card = document.createElement('div');
+            card.classList.add('symptom-card');
+            card.dataset.symptomId = symptom.id;
+            card.innerHTML = `
+                <span class="icon">${symptom.icon}</span>
+                <h3>${symptom.name}</h3>
+            `;
+            card.addEventListener('click', () => showSymptomDetail(symptom.id));
+            symptomGrid.appendChild(card);
+        });
+    }
+
+    // --- Show Symptom Detail ---
+    function showSymptomDetail(symptomId) {
+        const symptom = symptomsData.find(s => s.id === symptomId);
+        if (symptom) {
+            symptomDetailTitle.textContent = symptom.name;
+            symptomDetailContent.innerHTML = `
+                <div class="symptom-info-section">
+                    <h3>O que é e por que acontece</h3>
+                    <p>${symptom.content.oque}</p>
+                </div>
+                <div class="symptom-info-section">
+                    <h3>Como reconhecer (sinais e impacto)</h3>
+                    <p>${symptom.content.reconhecer}</p>
+                </div>
+                <div class="symptom-info-section">
+                    <h3>Avaliação rápida em casa</h3>
+                    <p>${symptom.content.avaliacao}</p>
+                </div>
+                <div class="symptom-info-section">
+                    <h3>Intervenções não-farmacológicas</h3>
+                    <ul>${symptom.content.naofarmacologicas.map(item => `<li>${item}</li>`).join('')}</ul>
+                </div>
+                <div class="symptom-info-section">
+                    <h3>Intervenções farmacológicas</h3>
+                    <ul>${symptom.content.farmacologicas.map(item => `<li>${item}</li>`).join('')}</ul>
+                </div>
+                <div class="symptom-info-section">
+                    <h3>Alertas e quando reavaliar</h3>
+                    <p>${symptom.content.alertas}</p>
+                </div>
+                <div class="symptom-info-section">
+                    <h3>Orientações para família/cuidador</h3>
+                    <p>${symptom.content.orientacoes}</p>
+                </div>
+            `;
+            showAppSection('symptom-detail-screen');
+        }
+    }
+
+    // --- Comfort Assessment Logic ---
+    const comfortDescriptions = {
+        '1': 'O paciente parece estar sofrendo muito, com sinais claros de dor ou angústia intensa.',<br/>
+        '2': 'O paciente demonstra desconforto significativo, pode estar inquieto ou com expressões de dor.',<br/>
+        '3': 'O paciente está em um estado neutro, sem sinais óbvios de conforto ou desconforto.',<br/>
+        '4': 'O paciente parece estar relativamente confortável, talvez relaxado ou em paz.',<br/>
+        '5': 'O paciente está muito confortável, tranquilo, sem sinais de dor ou angústia.'
+    };
+
+    comfortScaleRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            comfortDescription.textContent = comfortDescriptions[radio.value];
+        });
+    });
+
+    saveAssessmentBtn.addEventListener('click', () => {
+        const selectedLevel = document.querySelector('input[name="comfort-level"]:checked');
+        if (!selectedLevel) {
+            assessmentMessage.textContent = 'Por favor, selecione um nível de conforto.';
+            assessmentMessage.style.color = var(--danger-color);
+            assessmentMessage.style.display = 'block';
+            return;
+        }
+
+        const assessment = {
+            date: new Date().toLocaleString('pt-BR'),<br/>
+            level: selectedLevel.value,<br/>
+            description: comfortDescriptions[selectedLevel.value],<br/>
+            notes: assessmentNotes.value
+        };
+
+        let assessments = JSON.parse(localStorage.getItem('comfortAssessments')) || [];
+        assessments.push(assessment);
+        localStorage.setItem('comfortAssessments', JSON.stringify(assessments));
+
+        assessmentMessage.textContent = 'Avaliação salva com sucesso!';
+        assessmentMessage.style.color = var(--secondary-color);
+        assessmentMessage.style.display = 'block';
+        
+        // Clear form
+        selectedLevel.checked = false;
+        comfortDescription.textContent = '';
+        assessmentNotes.value = '';
+        
+        renderAssessmentHistory(); // Update history
+    });
+
+    // --- Assessment History Logic ---
+    function renderAssessmentHistory() {
+        let assessments = JSON.parse(localStorage.getItem('comfortAssessments')) || [];
+        assessmentList.innerHTML = '';
+
+        if (assessments.length === 0) {
+            noHistoryMessage.style.display = 'block';
+            clearHistoryBtn.style.display = 'none';
+        } else {
+            noHistoryMessage.style.display = 'none';
+            clearHistoryBtn.style.display = 'block';
+            assessments.reverse().forEach(item => { // Show most recent first
+                const div = document.createElement('div');
+                div.classList.add('assessment-item');
+                div.innerHTML = `
+                    <strong>Data:</strong> ${item.date}<br><br/>
+                    <strong>Nível de Conforto:</strong> ${item.level} - ${item.description}<br><br/>
+                    ${item.notes ? `<span><strong>Observações:</strong> ${item.notes}</span>` : ''}
+                `;
+                assessmentList.appendChild(div);
+            });
+        }
+    }
+
+    clearHistoryBtn.addEventListener('click', () => {
+        if (confirm('Tem certeza que deseja limpar todo o histórico de avaliações?')) {
+            localStorage.removeItem('comfortAssessments');
+            renderAssessmentHistory();
+        }
+    });
+
+    // --- Initial Render ---
+    document.addEventListener('DOMContentLoaded', () => {
+        renderSymptomGrid();
+        renderAssessmentHistory();
+
+        // Attach navigation to main nav links
+        document.querySelectorAll('#main-nav a[data-target]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showAppSection(e.target.dataset.target);
+            });
+        });
+
+        // Attach navigation to quick action buttons
+        document.querySelectorAll('.quick-actions button[data-target]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                showAppSection(e.target.dataset.target);
+            });
+        });
+    });
+</script>
+
+<!-- Service Worker File (service-worker.js) - This content would typically be in a separate file, but for a single HTML file, it's embedded here for demonstration. For actual PWA, it should be a separate file. -->
+<script id="service-worker-script" type="javascript/worker">
+    const CACHE_NAME = 'desconfortos-v1';
+    const urlsToCache = [
+        '/',
+        '/index.html',
+        '/cover_image.png',
+        // Add other assets if they were external files
+    ];
+
+    self.addEventListener('install', event => {
+        event.waitUntil(
+            caches.open(CACHE_NAME)
+                .then(cache => {
+                    console.log('Opened cache');
+                    return cache.addAll(urlsToCache);
+                })
+        );
+    });
+
+    self.addEventListener('fetch', event => {
+        event.respondWith(
+            caches.match(event.request)
+                .then(response => {
+                    // Cache hit - return response
+                    if (response) {
+                        return response;
+                    }
+                    return fetch(event.request);
+                })
+        );
+    });
+
+    self.addEventListener('activate', event => {
+        const cacheWhitelist = [CACHE_NAME];
+        event.waitUntil(
+            caches.keys().then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cacheName => {
+                        if (cacheWhitelist.indexOf(cacheName) === -1) {
+                            return caches.delete(cacheName);
+                        }
+                    })
+                );
+            })
+        );
+    });
+
+    // This part registers the embedded service worker
+    if (self.document === undefined) { // Check if running in a worker context
+        // This is the actual service worker code
+        // The above code is for the main thread to register it
+        // This is a simplified example. In a real scenario, you'd fetch the SW file.
+    } else {
+        // This is the main thread, we need to create a Blob for the service worker
+        const swCode = document.getElementById('service-worker-script').textContent;
+        const swBlob = new Blob([swCode], { type: 'application/javascript' });
+        const swURL = URL.createObjectURL(swBlob);
+        
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register(swURL).then(registration => {
+                    console.log('SW registered from embedded script: ', registration);
+                }).catch(registrationError => {
+                    console.log('SW registration failed from embedded script: ', registrationError);
+                });
+            });
+        }
+    }
+</script>
